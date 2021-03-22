@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/view/plantillaIndex.xhtml">
+
+            <ui:define name="titulo">
+                Index
+            </ui:define>
+
+            <ui:define name="content">
+                
+                <div class="container-fluid">
+                    <h3 class="bg-grays border">Lista To Do</h3>
+                </div>
+               <div class="container p-3 my-3">
+                   <h:form id="form">
+                       <p:dataTable id="singleDT" value="#{GLMB.listaToDo}" var="cuaderno" selectionMode="single" selection="#{GLMB.cuaderno}" rowKey="#{cuaderno.tarea.idTarea}">
+                        <p:column headerText="Id">
+                            <h:outputText class="container-fluid" value="#{cuaderno.tarea.idTarea}" />
+                        </p:column>
+
+                        <p:column headerText="Descripcion">
+                            <h:outputText class="container-fluid" value="#{cuaderno.tarea.descripcion}" />
+                        </p:column>
+
+                        <p:column headerText="Estado">
+                            <h:outputText class="container-fluid" value="#{cuaderno.tarea.estado}" />
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton process="singleDT" value="In Progress" action="#{GLMB.switchCuadernoEstadoInProgress(1)}"/>
+                            <p:commandButton process="singleDT" value="Done" action="#{GLMB.switchCuadernoEstadoDone(1)}"/>
+                            <p:commandButton process="singleDT" value="Delete task" action="#{GLMB.deleteTaskToDo()}"/>
+                            <p:commandButton process="singleDT" value="Modificar Tarea" action="modificar-tarea" />
+                        </f:facet>
+                    </p:dataTable>  
+                   </h:form>
+                </div>
+                <div class="container-fluid">
+                    <h3 class="bg-grays border">Lista In Progress</h3>
+                </div>
+               <div class="container p-3 my-3">
+                   <h:form id="form2">
+                   <p:dataTable id="singleDT" var="cuadernoProgress" value="#{PMB.lista}" selection="#{PMB.cuadernoInProgress}" selectionMode="single" rowKey="#{cuadernoProgress.tarea.idTarea}">
+                        <p:column headerText="Id">
+                            <h:outputText class="container-fluid" value="#{cuadernoProgress.tarea.idTarea}" />
+                        </p:column>
+
+                        <p:column headerText="Descripcion">
+                            <h:outputText class="container-fluid" value="#{cuadernoProgress.tarea.descripcion}" />
+                        </p:column>
+
+                        <p:column headerText="Estado">
+                            <h:outputText class="container-fluid" value="#{cuadernoProgress.tarea.estado}"/>
+                        </p:column>
+                       
+                        <f:facet name="footer">
+                            <p:commandButton process="singleDT" value="To Do" action="#{PMB.switchCuadernoEstadoToDo(1)}"/>
+                            <p:commandButton process="singleDT" value="Done" action="#{PMB.switchCuadernoEstadoDone(2)}"/>
+                            <p:commandButton process="singleDT" value="Delete task" action="#{PMB.deleteTaskInProgress()}"/>
+                            <p:commandButton process="singleDT" value="Modificar Tarea" />
+                        </f:facet>
+                    </p:dataTable>
+                   </h:form>
+                </div>
+               <div class="container-fluid">
+                    <h3 class="bg-grays border">Lista Done</h3>
+                </div>
+               <div class="container p-3 my-3">
+                   <h:form id="form3">
+                       <p:dataTable id="singleDT" value="#{done.listaDone}" var="cuadernoDone" selection="#{done.cuadernoDone}" selectionMode="single" rowKey="#{cuadernoDone.tarea.idTarea}" >
+                        <p:column headerText="Id">
+                            <h:outputText class="container-fluid" value="#{cuadernoDone.tarea.idTarea}" />
+                        </p:column>
+
+                        <p:column headerText="Descripcion">
+                            <h:outputText class="container-fluid" value="#{cuadernoDone.tarea.descripcion}" />
+                        </p:column>
+
+                        <p:column headerText="Estado">
+                            <h:outputText class="container-fluid" value="#{cuadernoDone.tarea.estado}" />
+                        </p:column>
+                       
+                        <f:facet name="footer">
+                            <p:commandButton process="singleDT" value="To Do" action="#{done.switchCuadernoEstadoToDo(2)}"/>
+                            <p:commandButton process="singleDT" value="In Progress" action="#{done.switchCuadernoEstadoInProgress(2)}"/>
+                            <p:commandButton process="singleDT" value="Delete task" action="#{done.deleteTaskDone()}"/>
+                            <p:commandButton process="singleDT" value="Modificar Tarea" />
+                        </f:facet>
+                    </p:dataTable>   
+                   </h:form>
+                </div>                
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
